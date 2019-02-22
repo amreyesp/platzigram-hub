@@ -1,6 +1,8 @@
 """Users views."""
 
 # Django
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import views as auth_views
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
@@ -73,11 +75,7 @@ def signup_view(request):
     )
 
 
+class LogoutView(LoginRequiredMixin, auth_views.LogoutView):
+    """Logut view."""
 
-
-
-@login_required
-def logout_view(request):
-    """Logout a user."""
-    logout(request)
-    return redirect('login')
+    template_name = 'users/logged_out.html'
