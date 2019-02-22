@@ -1,11 +1,10 @@
-"""platzigram URL Configuration"""
+
 """Platzigram urls"""
 #Django
 from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-
 
 
 #Local
@@ -15,10 +14,6 @@ from users import views as user_views
 
 urlpatterns = [
     path('admin/',admin.site.urls, name='admin'),
-
-    path('hi/<str:name>/<int:age>', local_views.say_hi, name = 'hi'),
-    path('current-time', local_views.current_time, name = 'time'),
-    path('sorted-numbers', local_views.sorted_numbers, name = 'sort'),
 
     path('', post_views.list_posts, name = 'feed'),
     path('posts/new/', post_views.create_post, name = 'create_post'),
