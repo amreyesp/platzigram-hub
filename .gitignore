@@ -42,6 +42,8 @@ Thumbs.db
 #.gitignore
 venv/
 media/
-platzigram/__pycache__/
-posts/__pycache__/
-users/__pycache__/
+*.pot
+*.pyc
+*/*/*/__pycache__/
+*/*/__pycache__/
+*/__pycache__/
