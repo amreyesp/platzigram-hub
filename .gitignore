@@ -42,7 +42,7 @@ Thumbs.db
 #.gitignore
 venv/
 media/
-platzigram/__pycache__/__init__cpython-37.pyc
+platzigram/__pycache__/__init__.cpython-37.pyc
 platzigram/__pycache__/middleware.cpython-37.pyc
 platzigram/__pycache__/settings.cpython-37.pyc
 platzigram/__pycache__/urls.cpython-37.pyc
@@ -59,3 +59,4 @@ users/__pycache__/__init__.cpython-37.pyc
 users/__pycache__/admin.cpython-37.pyc
 users/__pycache__/forms.cpython-37.pyc
 users/__pycache__/models.cpython-37.pyc
+users/__pycache__/views.cpython-37.pyc
