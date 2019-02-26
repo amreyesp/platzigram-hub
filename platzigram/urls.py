@@ -16,7 +16,7 @@ urlpatterns = [
     path('admin/',admin.site.urls, name='admin'),
 
     path('', post_views.ListPosts.as_view(), name = 'feed'),
-    path('posts/new/', post_views.create_post, name = 'create_post'),
+    path('posts/new/', post_views.CreatePostView.as_view(), name = 'create_post'),
 
     path('users/login/', user_views.LoginView.as_view(), name = 'login'),
     path('users/logout/', user_views.LogoutView.as_view(), name = 'logout'),
