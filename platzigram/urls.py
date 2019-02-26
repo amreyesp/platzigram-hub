@@ -15,7 +15,7 @@ from users import views as user_views
 urlpatterns = [
     path('admin/',admin.site.urls, name='admin'),
 
-    path('', post_views.list_posts, name = 'feed'),
+    path('', post_views.ListPosts.as_view(), name = 'feed'),
     path('posts/new/', post_views.create_post, name = 'create_post'),
 
     path('users/login/', user_views.LoginView.as_view(), name = 'login'),
