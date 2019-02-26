@@ -9,9 +9,9 @@
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a href="{% url "update_profile" %}">
+                    <a href="{% url "detail_post" %}">
                         {% if request.user.profile.picture %}
-                            <img src="{{ request.user.profile.picture.url }}" height="35" class="d-inline-block align-top rounded-circle"/>
+                            <img src="{{ request.user.profile.picture.url }}" height="35" width="35" class="d-inline-block align-top rounded-circle"/>
                         {% else%}
                             <img src="{% static 'img/default-profile.png' %}" height="35" class="d-inline-block align-top rounded-circle"/>
                         {% endif %}
