@@ -47,7 +47,6 @@ class SignupForm(forms.Form):
         profile.save()
 
 
-
 class ProfileForm(forms.Form):
     """Profile form."""
 
