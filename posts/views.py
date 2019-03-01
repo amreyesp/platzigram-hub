@@ -37,18 +37,3 @@ class CreatePostView(LoginRequiredMixin, CreateView):
         context ['user'] = self.request.user
         context ['profile'] =self.request.user.profile
         return context
-
-class DetailPostView(LoginRequiredMixin, DetailView):
-    """List detail posts of an user."""
-    model = Post
-    slug_field = 'username'
-    slug_url_kwarg = 'username'
-    queryset = User.objects.all()
-    template_name = 'posts/detail.html'
-
-    def get_context_data(self, **kwargs):
-        """Selecting the posts of an specific user"""
-        context = super().get_context_data(**kwargs)
-        user = self.get_object()
-        context ['posts'] =Post.objects.filter(user=user).order_by('-created')
-        return context
