@@ -18,7 +18,7 @@ from django.contrib.auth.models import User
 class ListPosts(LoginRequiredMixin, ListView):
     """List existing posts."""
     model = Post
-    paginate_by = 2
+    paginate_by = 4
     template_name = 'posts/feed.html'
     ordering = ('-created',)
     context_object_name = 'posts'
