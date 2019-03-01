@@ -16,11 +16,11 @@ urlpatterns = [
 
     path('', post_views.ListPosts.as_view(), name = 'feed'),
     path('posts/new/', post_views.CreatePostView.as_view(), name = 'create_post'),
-    path('posts/<str:username>/', post_views.DetailPostView.as_view(), name = 'detail_posts'),
 
     path('users/login/', user_views.LoginView.as_view(), name = 'login'),
     path('users/logout/', user_views.LogoutView.as_view(), name = 'logout'),
     path('users/signup/', user_views.SignupView.as_view(), name = 'signup'),
     path('users/me/profile/', user_views.UpdateProfileView.as_view(), name = 'update_profile'),
+    path('users/<str:username>/', user_views.DetailUserView.as_view(), name = 'detail_user'),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
