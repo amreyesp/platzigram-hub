@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 class Profile(models.Model):
     """Profile model of users app.
     Proxy model that extends the base data with other information"""
-    
+
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     website = models.URLField(max_length=200, blank=True)
@@ -22,6 +22,8 @@ class Profile(models.Model):
 
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
+
+    posts_count = models.IntegerField(default=0)
 
     def __str__(self):
         """Return username"""

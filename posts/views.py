@@ -31,8 +31,17 @@ class CreatePostView(LoginRequiredMixin, CreateView):
     template_name = 'posts/new.html'
     success_url = reverse_lazy('feed')
 
+
+    def get_object(self, **kwargs):
+        pk = self.request.user
+        return pk
+
     def get_context_data(self, **kwargs):
-        """Add user profile and context"""
+        """Dynamic counting of posts"""
+        user = self.get_object()
+        user.profile.posts_count += 1
+        user.profile.save()
+        """Add user and profile to context for the template"""
         context = super().get_context_data(**kwargs)
         context ['user'] = self.request.user
         context ['profile'] =self.request.user.profile
