@@ -55,7 +55,8 @@ class DetailUserView(LoginRequiredMixin, DetailView):
     context_object_name = 'user'
 
     def get_context_data(self, **kwargs):
-        """Selecting the posts of an specific user"""
+        """Selecting the posts of an specific user and pass the context to the
+        template"""
         context = super().get_context_data(**kwargs)
         user = self.get_object()
         context ['posts'] =Post.objects.filter(user=user).order_by('-created')
