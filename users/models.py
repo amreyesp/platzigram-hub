@@ -24,6 +24,15 @@ class Profile(models.Model):
     modified = models.DateTimeField(auto_now=True)
 
     posts_count = models.IntegerField(default=0)
+    following = models.ManyToManyField("self",  symmetrical = False)
+
+
+    def get_following(self):
+        """Class method defined to print and observe the following field on the
+        database. Since the field is ManyToMany type it cannot be displayed directly
+        by the administrator. This method can be deleted for production stage"""
+        return ",".join([str(f) for f in self.following.all()])
+
 
     def __str__(self):
         """Return username"""

@@ -14,7 +14,7 @@ class ProfileAdmin(admin.ModelAdmin):
     """Profile Admin."""
      #Toda esta clase hace referencia a comandos para visualizar estas
      #variables en la web
-    list_display = ('pk','user','phone_number','website','picture','posts_count')
+    list_display = ('pk','id','user_id','user','phone_number','website','picture','posts_count','get_following')
     list_display_links = ('user','pk')
     list_editable = ('website','phone_number','posts_count')
 
@@ -55,6 +55,7 @@ class ProfileInline(admin.StackedInline):
 class UserAdmin(BaseUserAdmin):
     inlines = (ProfileInline,)
     list_display = (
+        'id',
         'username',
         'email',
         'first_name',
