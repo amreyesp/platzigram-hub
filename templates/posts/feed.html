@@ -16,8 +16,10 @@
                     <p style="margin-top: 5px;">{{ post.user.get_full_name }}</p>
                 </div>
                 <!-- Implementing follow button -->
-                <a href="{% url "detail_user" post.user %}"
-                class="btn btn-primary" role="button"> Follow  @{{ post.user }}</a>
+                {% if post.user != request.user %}
+                  <a href="{% url "detail_user" post.user %}"
+                  class="btn btn-primary" role="button"> Follow  @{{ post.user }}</a>
+                {% endif %}
                 <!-- -->
             </div>
             <img style="width:100%;" src="{{ post.photo.url }}" alt="{{ post.title }}">
