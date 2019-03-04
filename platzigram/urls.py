@@ -21,6 +21,9 @@ urlpatterns = [
     path('users/logout/', user_views.LogoutView.as_view(), name = 'logout'),
     path('users/signup/', user_views.SignupView.as_view(), name = 'signup'),
     path('users/me/profile/', user_views.UpdateProfileView.as_view(), name = 'update_profile'),
+
+    path('users/follow/<str:user_to_follow>/', user_views.follow_user, name = 'follow_user'),
     path('users/<str:username>/', user_views.DetailUserView.as_view(), name = 'detail_user'),
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
