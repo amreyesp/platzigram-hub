@@ -5,11 +5,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import views as auth_views
 from django.shortcuts import redirect
 from django.views.generic.edit import FormView, UpdateView
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 from django.views.generic import DetailView
-from django.http import HttpResponse
-
-import json
 
 # Forms
 from users.forms import ProfileForm, SignupForm
@@ -42,6 +39,8 @@ class SignupView(FormView):
         return redirect ('login')
 
 class UpdateProfileView (LoginRequiredMixin, UpdateView):
+    """Update view"""
+
     form_class = ProfileForm
     template_name = 'users/update_profile.html'
     success_url = reverse_lazy('feed')
@@ -51,16 +50,17 @@ class UpdateProfileView (LoginRequiredMixin, UpdateView):
 
 class DetailUserView(LoginRequiredMixin, DetailView):
     """List detail posts of an user."""
+
     slug_field = 'username'
     slug_url_kwarg = 'username'
     queryset = User.objects.all()
     template_name = 'users/detail.html'
     context_object_name = 'user'
 
-
     def get_context_data(self, **kwargs):
         """Selecting the posts of an specific user and pass the context to the
         template"""
+
         context = super().get_context_data(**kwargs)
         user = self.get_object()
         context ['posts'] = Post.objects.filter(user=user).order_by('-created')
@@ -70,6 +70,8 @@ class DetailUserView(LoginRequiredMixin, DetailView):
 
 
 def follow_user(request, user_to_follow):
+    """Adding a user to follow"""
+
     if request.method == 'POST':
         from_user = request.user.profile
         follow_user = User.objects.get(username=user_to_follow)
