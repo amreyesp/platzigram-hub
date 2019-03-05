@@ -4,15 +4,13 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
-from django.urls import reverse, reverse_lazy
-from django.views.generic import DetailView
+from django.urls import reverse_lazy
 
 #Forms
 from posts.forms import PostForm
 
 #Models
 from posts.models import Post
-from django.contrib.auth.models import User
 
 
 class ListPosts(LoginRequiredMixin, ListView):
@@ -40,7 +38,6 @@ class CreatePostView(LoginRequiredMixin, CreateView):
         user.profile.posts_count += 1
         user.profile.save()
         return reverse_lazy('feed')
-
 
     def get_context_data(self, **kwargs):
         """Add user and profile to context for the template"""
