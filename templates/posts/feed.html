@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load user_filters %}
+
 
 {% block head_content %}
 <title>Platzigram</title>
@@ -15,8 +17,11 @@
                 <div class="media-body">
                     <p style="margin-top: 5px;">{{ post.user.get_full_name }}</p>
                 </div>
+                {% if from_user|following_user:post.user.id %}
+                <p><b>Already following!</b></p>
+                {% endif %}
                 <!-- Implementing follow button -->
-                {% if post.user != request.user %}
+                {% if post.user != request.user and not from_user|following_user:post.user.id%}
                   <a href="{% url "detail_user" post.user %}"
                   class="btn btn-primary" role="button"> Follow  @{{ post.user }}</a>
                 {% endif %}
