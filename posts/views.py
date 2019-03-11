@@ -21,6 +21,13 @@ class ListPosts(LoginRequiredMixin, ListView):
     ordering = ('-created',)
     context_object_name = 'posts'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        #Send the context to filter the following users' on the template
+        #through a custom filter
+        context ['from_user'] = self.request.user.profile
+        return context
+
 
 class CreatePostView(LoginRequiredMixin, CreateView):
     """Create new post view"""
