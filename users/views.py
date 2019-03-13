@@ -103,3 +103,21 @@ class FollowingDetail(LoginRequiredMixin, DetailView):
         context['followers_count'] = Profile.objects.filter(following=user.profile.id).count()
         context['profiles'] = user.profile.following.all()
         return context
+
+
+class FollowerDetail(LoginRequiredMixin, DetailView):
+    """List detail of followers"""
+
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
+    queryset = User.objects.all()
+    template_name = 'users/follow_detail.html'
+
+    def get_context_data(self, **kwargs):
+        """Selecting the profiles of the followers"""
+        user=self.get_object()
+        context=super().get_context_data(**kwargs)
+        context['following_count'] = user.profile.following.all().count()
+        context['followers_count'] = Profile.objects.filter(following=user.profile.id).count()
+        context['profiles'] = Profile.objects.filter(following=user.profile.id)
+        return context
