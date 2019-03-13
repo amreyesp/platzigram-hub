@@ -23,6 +23,7 @@ urlpatterns = [
     path('users/me/profile/', user_views.UpdateProfileView.as_view(), name = 'update_profile'),
 
     path('users/follow/<str:user_to_follow>/', user_views.follow_user, name = 'follow_user'),
+    path('users/following/<str:username>/', user_views.FollowingDetail.as_view(), name = 'following_detail'),
     path('users/<str:username>/', user_views.DetailUserView.as_view(), name = 'detail_user'),
 
 

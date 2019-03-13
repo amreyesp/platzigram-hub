@@ -22,10 +22,12 @@ class LoginView(auth_views.LoginView):
 
     template_name = 'users/login.html'
 
+
 class LogoutView(LoginRequiredMixin, auth_views.LogoutView):
     """Logut view."""
 
     template_name = 'users/logged_out.html'
+
 
 class SignupView(FormView):
     """Signup view"""
@@ -38,6 +40,7 @@ class SignupView(FormView):
         form.save()
         return redirect ('login')
 
+
 class UpdateProfileView (LoginRequiredMixin, UpdateView):
     """Update view"""
 
@@ -47,6 +50,7 @@ class UpdateProfileView (LoginRequiredMixin, UpdateView):
 
     def get_object(self):
         return self.request.user.profile
+
 
 class DetailUserView(LoginRequiredMixin, DetailView):
     """List detail posts of an user."""
@@ -69,6 +73,7 @@ class DetailUserView(LoginRequiredMixin, DetailView):
         return context
 
 
+
 def follow_user(request, user_to_follow):
     """Adding a user to follow"""
 
@@ -79,3 +84,22 @@ def follow_user(request, user_to_follow):
         from_user.save()
 
         return redirect('detail_user',username=user_to_follow)
+
+
+class FollowingDetail(LoginRequiredMixin, DetailView):
+    """List detail of users' following"""
+
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
+    queryset = User.objects.all()
+    template_name = 'users/follow_detail.html'
+
+    def get_context_data(self, **kwargs):
+        """Selecting the profiles that user is following and pass the context to the
+        template"""
+        user = self.get_object()
+        context = super().get_context_data(**kwargs)
+        context['following_count'] = user.profile.following.all().count()
+        context['followers_count'] = Profile.objects.filter(following=user.profile.id).count()
+        context['profiles'] = user.profile.following.all()
+        return context
