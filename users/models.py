@@ -24,6 +24,8 @@ class Profile(models.Model):
     modified = models.DateTimeField(auto_now=True)
 
     posts_count = models.IntegerField(default=0)
+    following_count = models.IntegerField(default=0)
+    followers_count = models.IntegerField(default=0)
     following = models.ManyToManyField("self",  symmetrical = False)
 
 
