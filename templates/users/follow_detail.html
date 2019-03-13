@@ -50,7 +50,7 @@
                         <b>{{ user.profile.posts_count }}</b> posts
                     </div>
                     <div class="col-sm-4">
-                        <b>{{ followers_count }}</b> followers
+                        <b>{{ followers_count }}</b> <a href="{% url 'follower_detail' user.username%}">followers</a>
                     </div>
                     <div class="col-sm-4">
                         <a href="{% url 'following_detail' user.username %}">following</a> <b>{{ following_count }}</b>
