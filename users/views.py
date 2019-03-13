@@ -81,7 +81,12 @@ def follow_user(request, user_to_follow):
         from_user = request.user.profile
         follow_user = User.objects.get(username=user_to_follow)
         from_user.following.add(follow_user.profile.id)
+        #Increment the counter of followers and following
+        from_user.following_count += 1
+        follow_user.profile.followers_count += 1
+        #Save to change data on DB
         from_user.save()
+        follow_user.profile.save()
 
         return redirect('detail_user',username=user_to_follow)
 
@@ -99,8 +104,6 @@ class FollowingDetail(LoginRequiredMixin, DetailView):
         template"""
         user = self.get_object()
         context = super().get_context_data(**kwargs)
-        context['following_count'] = user.profile.following.all().count()
-        context['followers_count'] = Profile.objects.filter(following=user.profile.id).count()
         context['profiles'] = user.profile.following.all()
         return context
 
@@ -117,7 +120,5 @@ class FollowerDetail(LoginRequiredMixin, DetailView):
         """Selecting the profiles of the followers"""
         user=self.get_object()
         context=super().get_context_data(**kwargs)
-        context['following_count'] = user.profile.following.all().count()
-        context['followers_count'] = Profile.objects.filter(following=user.profile.id).count()
         context['profiles'] = Profile.objects.filter(following=user.profile.id)
         return context
