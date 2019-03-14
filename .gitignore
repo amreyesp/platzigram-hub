@@ -39,8 +39,8 @@ Thumbs.db
 
 # Specific files and directories #
 ##################################
-#.gitignore
-venv/
+.gitignore
+venv37/
 media/
 *.pot
 *.pyc
