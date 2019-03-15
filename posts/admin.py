@@ -7,6 +7,6 @@ from posts.models import Post
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     """Post Admin"""
-    list_display = ('id', 'user', 'title', 'photo')
+    list_display = ('id', 'user', 'title', 'photo','likes')
     search_fields = ('title', 'user__username', 'user__email')
     list_filter = ('created','modified')
