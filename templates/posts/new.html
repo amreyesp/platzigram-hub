@@ -14,9 +14,6 @@
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
 
-                    <input type="hidden" name="user" value="{{ user.pk}}" />
-                    <input type="hidden" name="profile" value="{{ profile.pk }}" />
-
                     {# Title field #}
                     <div class="form-group">
                         <input
