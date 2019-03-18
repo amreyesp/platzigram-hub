@@ -4,11 +4,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
-from django.urls import reverse_lazy
 from django.shortcuts import redirect
-
-#Forms
-from posts.forms import PostForm
 
 #Models
 from posts.models import Post
@@ -24,40 +20,32 @@ class ListPosts(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        #Send the context to filter the following users' on the template
-        #through a custom filter
+        #Send the context to filter following users' (through a custom filter)
+        #and visualize (or not) the follow button on the template
         context ['from_user'] = self.request.user.profile
         return context
 
 
 class CreatePostView(LoginRequiredMixin, CreateView):
     """Create new post view"""
-
-    form_class = PostForm
+    model=Post
+    fields=['title','photo']
     template_name = 'posts/new.html'
 
-    def get_object(self, **kwargs):
-        """Define queryset. Return user's profile"""
-        return self.request.user
-
-    def get_success_url(self,**kwargs):
-        """Counting of posts once the success_url is called"""
-        user = self.get_object()
-        user.profile.posts_count += 1
-        user.profile.save()
-        return reverse_lazy('feed')
-
-    def get_context_data(self, **kwargs):
-        """Add user and profile to context for the template"""
-        context = super().get_context_data(**kwargs)
-        context ['user'] = self.request.user
-        context ['profile'] =self.request.user.profile
-        return context
+    def form_valid(self, form):
+        #Adding the fields that are not in the form
+        form.instance.user = self.request.user
+        form.instance.profile = self.request.user.profile
+        form.save()
+        #Update the posts_count once the form is validated
+        user=self.request.user.profile
+        user.posts_count += 1
+        user.save()
+        return redirect('feed')
 
 
 def GiveLike(request, post_id):
     """Adding a like to a post"""
-
     post = Post.objects.get(id=post_id)
     post.likes += 1
     post.save()
