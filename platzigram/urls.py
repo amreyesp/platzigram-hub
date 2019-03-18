@@ -15,6 +15,7 @@ urlpatterns = [
     path('admin/',admin.site.urls, name='admin'),
 
     path('', post_views.ListPosts.as_view(), name = 'feed'),
+    path('posts/likes/<int:post_id>/',post_views.GiveLike, name = 'like_post'),
     path('posts/new/', post_views.CreatePostView.as_view(), name = 'create_post'),
 
     path('users/login/', user_views.LoginView.as_view(), name = 'login'),

@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
 from django.urls import reverse_lazy
+from django.shortcuts import redirect
 
 #Forms
 from posts.forms import PostForm
@@ -52,3 +53,12 @@ class CreatePostView(LoginRequiredMixin, CreateView):
         context ['user'] = self.request.user
         context ['profile'] =self.request.user.profile
         return context
+
+
+def GiveLike(request, post_id):
+    """Adding a like to a post"""
+
+    post = Post.objects.get(id=post_id)
+    post.likes += 1
+    post.save()
+    return redirect('feed')
