@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block head_content %}
+<title>Create new comment</title>
+{% endblock %}
+
+
+{% block container%}
+
+  <form action="{% url 'signup'%}" method="post">
+    {% csrf_token%}
+
+    {{ form.as_p }}
+    <button class="btn btn-primary btn-block mt-5" type="submit">Comment</button>
+
+  </form>
+
+{% endblock%}
