@@ -6,7 +6,6 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
-
 #Local
 from posts import views as post_views #Estas son las vistas de la aplicación
 from users import views as user_views
@@ -15,7 +14,9 @@ from comments import views as comment_views
 urlpatterns = [
     path('admin/',admin.site.urls, name='admin'),
 
-    path('comments/new/post/<int:post_id>/', comment_views.CommentPostView.as_view(),name = 'comment_post'),
+    path('comments/post/<int:post_id>/new/', comment_views.CommentPostView.as_view(),name = 'comment_post'),
+    path('comments/<int:post_id>/post/', comment_views.ListCommentView.as_view(), name = 'list_comment'),
+
 
     path('', post_views.ListPosts.as_view(), name = 'feed'),
     path('posts/likes/<int:post_id>/',post_views.GiveLike, name = 'like_post'),
